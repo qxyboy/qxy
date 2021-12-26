@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>雨眠--自然音律收集者</title>
+		<!-- Description, Keywords and Author -->
+		<meta name="description" content="Your description">
+		<meta name="keywords" content="Your,Keywords">
+		<meta name="author" content="ResponsiveWebInc">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- Styles -->
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- Font awesome CSS -->
+		<link href="css/font-awesome.min.css" rel="stylesheet">		
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel="stylesheet">
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="#">
+		
+		<link rel="icon" href="img/logo.ico" type="image/x-icon"/>
+	</head>
+	
+	<body>
+		
+		<div class="wrapper">
+		
+			<!-- header -->
+			<header>
+				<!-- navigation -->
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#"><img class="img-responsive" src="img/logo.png" alt="Logo" /></a>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="index.html">主页</a></li>
+								<li><a href="#work">产品</a></li>
+								<li><a href="recruit.php">招募</a></li>
+								<li><a href="#team">介绍</a></li>
+								<li><a href="#contact">反馈</a></li>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</div><!-- /.container-fluid -->
+				</nav>
+			</header>
+			
+			<!-- banner -->
+			<div class="banner">
+						<div style="position: relative;align-items: center; display: flex; justify-content: center; margin: 0px auto;">
+		<div class="arrow arrow-left" onclick="prev()"><img src="img/icon_r1_c1.png" /> </div>
+		<div class="arrow arrow-right" onclick="next()"><img src="img/icon_r1_c3.png" /></div>
+		<img id="demo1" src="img/p3.jpg">
+		<ul class="indexes" style="color: transparent;">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+		</ul>
+		</div>
+		<script>
+			function next() {
+				index++
+				if(index === 3) index = 0 
+				clearInterval(timer)
+				setStyle()
+				run()
+			}
+			function prev() {
+				index--
+				if(index === -1) index = 2 
+				clearInterval(timer)
+				setStyle()
+				run()
+			}
+			//下面是图片的地址链接
+			let arr = [
+				"img/p3.jpg",
+				"img/p2.jpg",
+				"img/p1.jpg"
+			]
+			var demo1 = document.getElementById('demo1')
+			
+			
+			let indexes = document.getElementsByClassName('indexes')[0].children
+			let timer = -1
+			for (let i = 0; i < indexes.length; i++) {
+				indexes[i].onmouseenter = function () {
+					
+					index = i
+					clearInterval(timer)
+					setStyle()
+				}
+				indexes[i].onmouseleave = function () {
+					run()
+				}
+			}
+			var index = 0
+			 function run() {
+				 timer = setInterval(() => {
+				index++
+				
+				if(index ===3) index = 0
+				
+				setStyle()
+			}, 2000);
+			 }
+			 function setStyle() {
+				 demo1.src = arr[index]
+				 
+				 let active = document.getElementsByClassName('active')[0]
+				 active.classList.remove('active')
+				 indexes[index].classList.add("active")
+			 }
+			 run()
+		</script>
+				<div class="container">
+					<!-- heading -->
+					<h2>在这里能给你带来一个温柔舒适的世界</h2>
+					<!-- sub heading -->
+					<h3>Bring you a gentle and comfortable world</h3>
+					<!-- access button -->
+					<a  class="btn btn-default" href="php-admin\adminlog.php"style="font-weight: bold; color:#847499;">登录</a>
+				
+			</div>
+			<!-- banner end -->
+			
+			<!-- works -->
+			
+			
+			
+			<div class="works" id="work">
+				<div class="container">
+					<!-- default heading -->
+					<div class="default-heading">
+						<!-- heading -->
+						<h2>产品展示</h2>
+						<!-- paragraph -->
+						<p>Eliminate work tension, <br>reduce the pressure of life.</p>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							
+							
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=1";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(1)' alt='user'/>" ;
+    					}
+   				 }
+					 ?>
+								<audio id="music1"  src="music/郭燕 - 天空之城 (钢琴版).mp3" loop autoplay></audio>		
+								<!-- heading -->
+					<?php 
+								$sql="select name from cpzs where xh=1";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+								
+								<!-- brand org -->
+
+							<?php 
+								$sql="select str from cpzs where xh=1";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+								
+							</div>
+							
+							<script>
+								window.onload = function(){ 
+								    var audio = document.getElementById('music1');
+								     audio.pause();//打开页面时无音乐
+								     
+								    var audio = document.getElementById('music2');
+								     audio.pause();//打开页面时无音乐
+								      
+								    var audio = document.getElementById('music3');
+								     audio.pause();//打开页面时无音乐
+								      
+								    var audio = document.getElementById('music4');
+								     audio.pause();//打开页面时无音乐
+								      
+								    var audio = document.getElementById('music5');
+								     audio.pause();//打开页面时无音乐
+								      
+								    var audio = document.getElementById('music6');
+								     audio.pause();//打开页面时无音乐
+								     
+								    var audio = document.getElementById('music7');
+								     audio.pause();//打开页面时无音乐
+								      
+								    var audio = document.getElementById('music8');
+								     audio.pause();//打开页面时无音乐
+								}
+								function play(index) {
+								    var audio = document.getElementById('music'+index);
+								    if (audio.paused) {
+								        audio.play();
+								        document.getElementById('musicImg').src="img/play.png";
+								    }else{
+								        audio.pause();
+								        audio.currentTime = 0;//音乐从头播放
+								        document.getElementById('musicImg').src="img/stop.png";
+								    }
+								}
+							</script>
+							
+			
+							
+						</div>
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=2";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(2)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+								
+								<audio id="music2"  src="music/CMJ - 雨停了（纯音乐）.mp3" loop autoplay></audio>
+								<!-- heading -->
+									<?php 
+								$sql="select name from cpzs where xh=2";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+								
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=2";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=3";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(3)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+								
+								<audio id="music3"  src="music/不才 - 十三月凉.mp3" loop autoplay></audio>
+								<!-- heading -->
+									<?php 
+								$sql="select name from cpzs where xh=3";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=3";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=4";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(4)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+								
+								<audio id="music4" src="music/不才 - 一身诗意千寻瀑.mp3" loop autoplay></audio>
+								<!-- heading -->
+									<?php 
+								$sql="select name from cpzs where xh=4";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=4";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+							</div>
+						</div>
+						
+						
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=5";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(5)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+								<audio id="music5" src="music/不才 - 参商.mp3" loop autoplay></audio>
+								<!-- heading -->
+									<?php 
+								$sql="select name from cpzs where xh=5";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=5";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+							</div>
+						</div>
+					
+						
+						
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=6";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(6)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+							
+								<audio id="music6" src="music/不才 - 拂雪(纯歌版).mp3" loop autoplay></audio>
+								<!-- heading -->
+									<?php 
+								$sql="select name from cpzs where xh=6";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=6";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=7";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(7)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+								<audio id="music7" src="music/不才 - 拂雪.mp3" loop autoplay></audio>
+								<!-- heading -->
+									<?php 
+								$sql="select name from cpzs where xh=7";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+   				 
+					?>
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=7";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<!-- work item -->
+							<div class="work-item">
+								<!-- work details image -->
+								<?php 
+									 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    			{
+    						$sql="select img from cpzs where xh=8";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<img class='img-responsive' src='php-admin\\views\\".$row["img"]."'onClick='play(8)' alt='user'/>" ;
+    					}
+   				 }
+								 ?>
+								
+								<audio id="music8" src="music/不才 - 花枝春野.mp3" loop autoplay></audio>
+								<!-- heading -->
+							<?php 
+								$sql="select name from cpzs where xh=8";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<h3  ><a style='cursor:pointer;' >".$row['name']."</a></h3>" ;
+    					}
+					    ?>
+								<!-- brand org -->
+								<?php 
+								$sql="select str from cpzs where xh=8";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+       	echo "<span class='org'>".$row['str']."</span>" ;
+    					}
+					    ?>
+
+								<?php 
+									mysqli_close($link);//关闭数据库
+								 ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+
+			<!-- team -->
+			<div class="team" id="team" style="background: #f3c1d6;">
+				<div class="container">
+					<!-- default heading -->
+					<div class="default-heading">
+						<!-- heading -->
+						<h2>公司简介</h2>
+						<!-- paragraph -->
+<?php 
+						 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库 
+						 $sql="select top from gsjj where xh=2";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+        echo "<p align=center >".$row['top']."</p>";
+    					}
+      				mysqli_close($link);//关闭数据库
+?>
+
+						
+<?php 
+						 if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库 
+						 $sql="select str from gsjj where xh=2";
+      				$rs=mysqli_query($link,$sql);
+      				 while($row=mysqli_fetch_array($rs))
+    					{
+        echo "<p id='word-use' style='font-size: 18px; line-height: 60px;'>".$row['str']."</p>";
+    					}
+      				mysqli_close($link);//关闭数据库
+?>
+						
+					</div>
+					<div class="row">
+						
+					</div>
+				</div>
+			</div>
+			
+			<!-- contact -->
+			<div class="contact" id="contact">
+				<div class="container">
+					<!-- default heading -->
+					<div class="default-heading">
+						<!-- heading -->
+						<h2>问题反馈</h2>
+						<!-- paragraph -->
+						<p>if you have any questions,<br> please fill out the feedback form below.  Thank you for your cooperation!  </p>
+					</div>
+					<!-- contact container -->
+					<div class="contact-container">	
+						<div class="row">
+							<div class="col-md-5 col-sm-6">
+								<!-- heading -->
+								<h3>反馈表</h3>
+								<form role="form" id="contactForm" method="post">
+                  <div class="form-group">
+                    <label >昵称</label>
+                    <input name="t1" class="form-control" type="text" id="contactName"  />
+                  </div>
+                  <div class="form-group">
+                    <label >邮箱</label>
+                    <input name="t2" class="form-control" type="email" id="contactEmail"  />
+                  </div>
+                  <div class="form-group">
+                    <label >内容</label>
+                    <textarea  name="t3" class="form-control" id="contactMessage" rows="3" ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" name="b1" id="submit" class="btn btn-default"></input>
+                  </div><br/>
+                </form>
+
+  
+ 
+<?php 
+if(!empty($_POST['b1']))
+{
+    $txt1=$_POST['t1'];
+    $txt2=$_POST['t2'];
+    $txt3=$_POST['t3'];
+
+ if($link=mysqli_connect('localhost','root','root','yumian'))//连接mysql yumian数据库
+    {
+
+    if($txt1==''||$txt2==''||$txt3=='')
+     {echo "<script>alert('输入框不能为空！')</script>";}
+    else
+    {   
+    $sql="insert into wtfk (name,email,msg) values ('$txt1','$txt2','$txt3')";
+    if(mysqli_query($link,$sql))
+   // {echo "<script>alert('操作成功');location.href='".$_SERVER['HTTP_REFERER']."';</script>";}//成功刷新
+    mysqli_close($link);//关闭数据库
+    }
+    }
+}
+
+?>
+
+							</div>
+							<div class="col-md-3 col-sm-6">
+								<!-- heading -->
+								<h3 style="padding-top:20px ;">地址</h3>
+								<!-- paragraph -->
+								<p class="address">&nbsp;&nbsp;重庆市沙坪坝区&nbsp;
+									大学城东路76号<br>
+									（邮政编码：401331）</p>
+									<br>
+								<!-- heading -->
+								<h3>联系电话</h3>
+								<!-- paragraph -->
+								<p class="address">&nbsp;188****2078</p>
+									<br>
+								<!-- heading -->
+								<h3>邮箱</h3>
+								<!-- paragraph -->
+								<p class="address"><a href="#" style="color: #664f84;">&nbsp;159***9862@qq.com</a></p>
+							</div>
+							<div class="col-md-4">
+								<img class="img-responsive map" src="img/map.jpg" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<footer>
+				<div class="container">
+					<p><a href="#">&nbsp;主页&nbsp;</a> | <a href="#work">&nbsp;产品&nbsp;</a> | <a href="#team">&nbsp;介绍&nbsp;</a> | <a href="#contact">&nbsp;反馈&nbsp;</a></p>
+					<!-- logo image -->
+					<img class="img-responsive" src="img/logo.png" alt="" />
+					
+					<!-- copy right -->
+					<!-- This theme comes under Creative Commons Attribution 4.0 Unported. So don't remove below link back -->
+					<p class="copy-right">Creating time:2021 <a href="#">design</a> |creative director: <a href=#>YangWenrui</a></p>
+				</div>
+			</footer>
+
+		</div>
+		
+		
+		<!-- Javascript files -->
+		<!-- jQuery -->
+		<script src="js/jquery.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Respond JS for IE8 -->
+		<script src="js/respond.min.js"></script>
+		<!-- HTML5 Support for IE -->
+		<script src="js/html5shiv.js"></script>
+		<!-- Custom JS -->
+		<script src="js/custom.js"></script>
+		
+		<script src="js/layer_v3.1.1/3.1.1/layer.js"></script>
+		<script src="js/登录弹窗.js"></script>
+		
+	</body>	
+</html>
